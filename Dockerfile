@@ -11,4 +11,9 @@ LABEL "maintainer"="abatilo"
 
 RUN pip install poetry==0.12.16
 
-ENTRYPOINT [ "/usr/local/bin/poetry" ]
+RUN useradd --create-home poetryuser
+USER poetryuser
+
+COPY entrypoint.sh /
+
+ENTRYPOINT [ "/entrypoint.sh" ]
