@@ -9,9 +9,11 @@ GitHub Actions for Python projects using poetry
 
 ## Getting started
 
-| Branch | Base image             |
-| ------ | ---------------------- |
-| 3.7.3  | `python:3.7.3-stretch`   |
+| Branch   | Base image             | Poetry version |
+| ------   | ---------------------- | -------------- |
+| `master` | `python:3.7.4-stretch` | `0.12.17`      |
+| `3.7.4`  | `python:3.7.4-stretch` | `0.12.17`      |
+| `3.7.3`  | `python:3.7.3-stretch` | `0.12.17`      |
 
 ### Create `main.workflow`
 
@@ -22,19 +24,19 @@ workflow "Publish Python package" {
 }
 
 action "Install" {
-  uses = "abatilo/actions-poetry@3.7.3"
+  uses = "abatilo/actions-poetry@master"
   args = ["install"]
 }
 
 action "Run black" {
   needs = "Install"
-  uses = "abatilo/actions-poetry@3.7.3"
+  uses = "abatilo/actions-poetry@master"
   args = ["run", "python", "-m", "black", "--check", "."]
 }
 
 action "Run pylint" {
   needs = "Install"
-  uses = "abatilo/actions-poetry@3.7.3"
+  uses = "abatilo/actions-poetry@master"
   args = ["run", "python", "-m", "pylint", "src"]
 }
 
@@ -46,7 +48,7 @@ action "Master branch" {
 
 action "publish" {
   needs = "Master branch"
-  uses = "abatilo/actions-poetry@3.7.3"
+  uses = "abatilo/actions-poetry@master"
   secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
   args = ["publish", "--build", "--no-interaction", "-vv", "--username", "$PYPI_USERNAME", "--password", "$PYPI_PASSWORD"]
 }
