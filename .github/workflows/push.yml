@@ -1,0 +1,11 @@
+on: push
+name: Main workflow
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: docker-build
+      uses: actions/docker/cli@master
+      with:
+        args: build -t abatilo/actions-poetry .
