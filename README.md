@@ -15,44 +15,46 @@ GitHub Actions for Python projects using poetry
 | `3.7.4`  | `python:3.7.4-stretch` | `0.12.17`      |
 | `3.7.3`  | `python:3.7.3-stretch` | `0.12.17`      |
 
-### Create `main.workflow`
+### Create your workflow
+Example taken from [abatilo/typed-json-dataclass](https://github.com/abatilo/typed-json-dataclass/blob/433fa994d3aafd733f491a04f99507739ce895f2/README.md)
 
-```hcl
-workflow "Publish Python package" {
-  on = "push"
-  resolves = ["publish"]
-}
+```yaml
+on:
+  pull_request:
+    branches:
+    - master
 
-action "Install" {
-  uses = "abatilo/actions-poetry@master"
-  args = ["install"]
-}
-
-action "Run black" {
-  needs = "Install"
-  uses = "abatilo/actions-poetry@master"
-  args = ["run", "python", "-m", "black", "--check", "."]
-}
-
-action "Run pylint" {
-  needs = "Install"
-  uses = "abatilo/actions-poetry@master"
-  args = ["run", "python", "-m", "pylint", "src"]
-}
-
-action "Master branch" {
-  needs = ["Run pylint", "Run black"]
-  uses = "actions/bin/filter@master"
-  args = "branch master"
-}
-
-action "publish" {
-  needs = "Master branch"
-  uses = "abatilo/actions-poetry@master"
-  secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
-  args = ["publish", "--build", "--no-interaction", "-vv", "--username", "$PYPI_USERNAME", "--password", "$PYPI_PASSWORD"]
-}
-
+name: Publish typed_json_dataclass
+jobs:
+  flake8:
+    name: flake8
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install
+      uses: abatilo/actions-poetry@master
+      with:
+        args: install
+    - name: Run flake8
+      uses: abatilo/actions-poetry@master
+      with:
+        args: run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
+          tests
+  pytest:
+    name: pytest
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install
+      uses: abatilo/actions-poetry@master
+      with:
+        args: install
+    - name: Run pytest
+      uses: abatilo/actions-poetry@master
+      with:
+        args: run python -m pytest --cov-report xml:codecov.xml --cov=typed_json_dataclass
+          --cov-report=html --junit-xml=coverage.xml --cov-branch --cov-fail-under=100
+          tests/
 ```
 
 ## License
