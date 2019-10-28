@@ -1,0 +1,21 @@
+name: Master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: master
+    - name: docker-build
+      uses: actions/docker/cli@master
+      with:
+        args: build -t abatilo/actions-poetry .
+    - name: Generate release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npx semantic-release
