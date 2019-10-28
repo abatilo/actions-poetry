@@ -9,11 +9,9 @@ GitHub Actions for Python projects using poetry
 
 ## Getting started
 
-| Branch   | Base image             | Poetry version |
-| ------   | ---------------------- | -------------- |
-| `master` | `python:3.7.4-stretch` | `0.12.17`      |
-| `3.7.4`  | `python:3.7.4-stretch` | `0.12.17`      |
-| `3.7.3`  | `python:3.7.3-stretch` | `0.12.17`      |
+| Tag     | Base image             | Poetry version |
+| ------  | ---------------------- | -------------- |
+| v1.0.0`  | `python:3.7.4-stretch`   | `0.12.17`        |
 
 ### Create your workflow
 Example taken from [abatilo/typed-json-dataclass](https://github.com/abatilo/typed-json-dataclass/blob/433fa994d3aafd733f491a04f99507739ce895f2/README.md)
