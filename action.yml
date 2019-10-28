@@ -1,0 +1,9 @@
+name: 'Python Poetry Action'
+author: '@abatilo'
+description: 'An action to run https://github.com/sdispater/poetry'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'truck'
+  color: 'gray-dark'
