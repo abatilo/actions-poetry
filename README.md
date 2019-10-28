@@ -9,50 +9,25 @@ GitHub Actions for Python projects using poetry
 
 ## Getting started
 
-| Tag      | Base image             | Poetry version |
-| -------- | ---------------------- | -------------- |
-| `v1.0.0` | `python:3.7.4-stretch` | `0.12.17`      |
-
 ### Create your workflow
-Example taken from [abatilo/typed-json-dataclass](https://github.com/abatilo/typed-json-dataclass/blob/433fa994d3aafd733f491a04f99507739ce895f2/README.md)
-
 ```yaml
-on:
-  pull_request:
-    branches:
-    - master
+name: Run Tests
+on: push
 
-name: Publish typed_json_dataclass
 jobs:
-  flake8:
-    name: flake8
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Install
-      uses: abatilo/actions-poetry@master
-      with:
-        args: install
-    - name: Run flake8
-      uses: abatilo/actions-poetry@master
-      with:
-        args: run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
-          tests
   pytest:
     name: pytest
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - name: Install
-      uses: abatilo/actions-poetry@master
+      uses: abatilo/actions-poetry@v1.0.0
       with:
         args: install
     - name: Run pytest
-      uses: abatilo/actions-poetry@master
+      uses: abatilo/actions-poetry@v1.0.0
       with:
-        args: run python -m pytest --cov-report xml:codecov.xml --cov=typed_json_dataclass
-          --cov-report=html --junit-xml=coverage.xml --cov-branch --cov-fail-under=100
-          tests/
+        args: run python -m pytest --cov=src --cov-branch --cov-fail-under=100 tests/
 ```
 
 ## License
