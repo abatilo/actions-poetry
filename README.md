@@ -4,6 +4,7 @@ GitHub Actions for Python projects using poetry
 [![license](https://img.shields.io/github/license/abatilo/actions-poetry.svg)](https://github.com/abatilo/actions-poetry/blob/master/LICENSE)
 [![release](https://img.shields.io/github/release/abatilo/actions-poetry.svg)](https://github.com/abatilo/actions-poetry/releases/latest)
 [![GitHub release date](https://img.shields.io/github/release-date/abatilo/actions-poetry.svg)](https://github.com/abatilo/actions-poetry/releases)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=abatilo/actions-poetry)](https://dependabot.com)
 
 - [sdispater/poetry: Python dependency management and packaging made easy.](https://github.com/sdispater/poetry)
 
