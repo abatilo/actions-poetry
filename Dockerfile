@@ -1,7 +1,7 @@
 FROM python:slim-buster
 
-ENV PYENV_HOME=/root/.pyenv
-ENV PATH $PYENV_HOME/shims:$PYENV_HOME/bin:$PATH
+ENV PYENV_ROOT=/root/.pyenv
+ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -27,8 +27,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pyenv, then install python versions
-RUN git clone --depth 1 https://github.com/pyenv/pyenv.git $PYENV_HOME && \
-    rm -rfv $PYENV_HOME/.git
+RUN git clone --depth 1 https://github.com/pyenv/pyenv.git $PYENV_ROOT && \
+    rm -rfv $PYENV_ROOT/.git
 
 COPY requirements.txt entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]

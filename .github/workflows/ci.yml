@@ -6,13 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Build image
-      run: |
-        docker build -t actions-poetry .
-    - name: Print ref
-      run: |
-        echo $GITHUB_REF
-        env
+    - name: Run image
+      uses: ./
+      with:
+        python_version: 3.8.0
+        poetry_version: 0.12.17
     - name: Generate release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
