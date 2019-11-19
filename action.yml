@@ -7,3 +7,12 @@ runs:
 branding:
   icon: 'truck'
   color: 'gray-dark'
+inputs:
+  python_version:
+    description: 'The version of python to install'
+    required: true
+    default: '3.8.0'
+  poetry_version:
+    description: 'The version of poetry to install'
+    required: true
+    default: '0.12.17'
