@@ -3,16 +3,22 @@ on: push
 
 jobs:
   ci:
+    strategy:
+      matrix:
+        python_version: [3.5.9, 3.7.0, 3.8.0]
+        poetry_version: [0.12.17]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Build image
-      run: |
-        docker build -t actions-poetry .
-    - name: Print ref
-      run: |
-        echo $GITHUB_REF
-        env
+    - name: Run image
+      uses: ./
+      with:
+        python_version: ${{ matrix.python_version }}
+        poetry_version: ${{ matrix.poetry_version }}
+  release:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
     - name: Generate release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
