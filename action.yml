@@ -11,7 +11,7 @@ inputs:
   python_version:
     description: 'The version of python to install'
     required: true
-    default: '3.8.0'
+    default: '3.8'
   poetry_version:
     description: 'The version of poetry to install'
     required: true
