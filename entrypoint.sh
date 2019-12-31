@@ -7,7 +7,7 @@ pip install poetry=="$INPUT_POETRY_VERSION"
 pyenv rehash
 
 # If INPUT_DIRECTORY variable is defined, try to CD into it.
-if [ -z "$INPUT_WORKING_DIRECTORY" ]; then
+if [ -n "$INPUT_WORKING_DIRECTORY" ]; then
   pushd . > /dev/null 2>&1 || return
   cd "$INPUT_WORKING_DIRECTORY" || return
 
@@ -17,6 +17,6 @@ fi
 sh -c "poetry $*"
 
 # Step back to starting directory.
-if [ -z "$INPUT_WORKING_DIRECTORY" ]; then
+if [ -n "$INPUT_WORKING_DIRECTORY" ]; then
   popd > /dev/null 2>&1 || return
 fi
