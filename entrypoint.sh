@@ -14,6 +14,9 @@ if [ -n "$INPUT_WORKING_DIRECTORY" ]; then
   echo -e "Changing to working directory $INPUT_WORKING_DIRECTORY..."
 fi
 
+# Fix for virtualenvs defined in .python-version.
+pyenv local "$INPUT_PYTHON_VERSION"
+
 sh -c "poetry $*"
 
 # Step back to starting directory.
