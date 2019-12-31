@@ -9,7 +9,9 @@ pyenv rehash
 # If INPUT_DIRECTORY variable is defined, try to CD into it.
 if [ -z "$INPUT_WORKING_DIRECTORY" ]; then
   pushd . > /dev/null 2>&1 || return
-  cd "$INPUT_DIRECTORY" || return
+  cd "$INPUT_WORKING_DIRECTORY" || return
+
+  echo -e "Changing to working directory $INPUT_WORKING_DIRECTORY..."
 fi
 
 sh -c "poetry $*"
