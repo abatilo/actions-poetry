@@ -15,6 +15,7 @@ jobs:
       with:
         python_version: ${{ matrix.python_version }}
         poetry_version: ${{ matrix.poetry_version }}
+        working_directory: '.'
   release:
     needs: ci
     runs-on: ubuntu-latest
