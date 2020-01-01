@@ -11,7 +11,7 @@ pushd . > /dev/null 2>&1 || return
 cd "$INPUT_WORKING_DIRECTORY" || return
 
 # Fix for virtualenvs defined in .python-version.
-pyenv local "$INPUT_PYTHON_VERSION"
+pyenv latest local "$INPUT_PYTHON_VERSION"
 
 sh -c "poetry $*"
 
