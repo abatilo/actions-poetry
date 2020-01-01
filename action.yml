@@ -19,3 +19,4 @@ inputs:
   working_directory:
     description: 'The directory to run poetry commands in.'
     required: false
+    default: '.'
