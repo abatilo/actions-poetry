@@ -13,6 +13,7 @@ cd "$INPUT_WORKING_DIRECTORY" || return
 # Fix for virtualenvs defined in .python-version.
 pyenv latest local "$INPUT_PYTHON_VERSION"
 
+sh -c "poetry pip install --upgrade pip"
 sh -c "poetry $*"
 
 # Step back to starting directory.
