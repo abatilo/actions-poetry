@@ -1,6 +1,6 @@
 name: 'Python Poetry Action'
 author: '@abatilo'
-description: 'An action to run https://github.com/sdispater/poetry'
+description: 'An action to run https://github.com/python-poetry/poetry'
 runs:
   using: 'docker'
   image: 'Dockerfile'
