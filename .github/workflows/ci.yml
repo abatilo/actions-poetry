@@ -5,21 +5,17 @@ jobs:
   ci:
     strategy:
       matrix:
-        python_version: [3.5, 3.6, 3.7, 3.8]
+        python_version: [3.7, 3.8]
         poetry_version: [1.0]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v2
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          ref: master
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-pypoetry-${{ hashFiles('**/pyproject.toml') }}
+          key: ${{ runner.os }}-pypoetry-${{ hashFiles('**/pyproject.lock') }}
           restore-keys: |
             ${{ runner.os }}-pypoetry-
       - name: Run image
@@ -28,6 +24,7 @@ jobs:
           python_version: ${{ matrix.python_version }}
           poetry_version: ${{ matrix.poetry_version }}
           working_directory: "."
+          args: install
   release:
     needs: ci
     runs-on: ubuntu-latest

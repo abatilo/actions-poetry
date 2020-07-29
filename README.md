@@ -20,15 +20,11 @@ jobs:
     name: pytest
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-
-    # Cache the install directories
-    - uses: actions/cache@v2
+    - uses: actions/checkout@v2
       with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        ref: master
+
+    # Cache the install directory
     - uses: actions/cache@v2
       with:
         path: ~/.cache/pypoetry
