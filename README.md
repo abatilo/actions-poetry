@@ -21,15 +21,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+
+    # Cache the install directories
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pypoetry
+        key: ${{ runner.os }}-pypoetry-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pypoetry-
+
     - name: Install
-      uses: abatilo/actions-poetry@v1.5.0
+      uses: abatilo/actions-poetry@v1.10.0
       with:
         python_version: 3.8.0
         poetry_version: 1.0
         working_directory: ./working_dir # Optional, defaults to '.'
         args: install
     - name: Run pytest
-      uses: abatilo/actions-poetry@v1.5.0
+      uses: abatilo/actions-poetry@v1.10.0
       with:
         python_version: 3.8.0
         poetry_version: 1.0

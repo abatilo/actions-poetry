@@ -9,19 +9,31 @@ jobs:
         poetry_version: [1.0]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Run image
-      uses: ./
-      with:
-        python_version: ${{ matrix.python_version }}
-        poetry_version: ${{ matrix.poetry_version }}
-        working_directory: '.'
+      - uses: actions/checkout@master
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-pypoetry-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pypoetry-
+      - name: Run image
+        uses: ./
+        with:
+          python_version: ${{ matrix.python_version }}
+          poetry_version: ${{ matrix.poetry_version }}
+          working_directory: "."
   release:
     needs: ci
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Generate release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx semantic-release
+      - uses: actions/checkout@master
+      - name: Generate release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
