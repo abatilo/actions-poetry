@@ -1,5 +1,5 @@
 name: CI
-on: [push, pull_request]
+on: [push]
 
 jobs:
   ci:
@@ -23,13 +23,14 @@ jobs:
         with:
           python_version: ${{ matrix.python_version }}
           poetry_version: ${{ matrix.poetry_version }}
-          working_directory: "."
           args: install
   release:
     needs: ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Generate release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
