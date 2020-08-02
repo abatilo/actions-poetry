@@ -1,4 +1,4 @@
-name: 'Python Poetry Action'
+name: 'Python Poetry Github Action'
 author: '@abatilo'
 description: 'An action to run https://github.com/python-poetry/poetry'
 runs:
