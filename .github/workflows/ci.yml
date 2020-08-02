@@ -19,7 +19,7 @@ jobs:
       uses: ./
       with:
         working_directory: '.'
-      args: -h
+        args: -h
   release:
     needs: ci
     runs-on: ubuntu-latest
