@@ -3,7 +3,7 @@ author: '@abatilo'
 description: 'An action to run https://github.com/python-poetry/poetry'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'Dockerfile${{ inputs.python_version }}'
 branding:
   icon: 'truck'
   color: 'gray-dark'
