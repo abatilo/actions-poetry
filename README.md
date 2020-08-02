@@ -21,19 +21,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-      with:
-        python_version: 3.8.0
-        poetry_version: 1.0
     - name: Install
       uses: abatilo/actions-poetry@v1.5.0
       with:
+        python_version: 3.8.0
+        poetry_version: 1.0
         working_directory: ./working_dir # Optional, defaults to '.'
         args: install
     - name: Run pytest
-      uses: abatilo/actions-poetry@v1.5.0
+      run: run python -m pytest --cov=src --cov-branch --cov-fail-under=100 tests/
       with:
         working_directory: ./working_dir
-        args: run python -m pytest --cov=src --cov-branch --cov-fail-under=100 tests/
 ```
 
 ## License
