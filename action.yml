@@ -1,5 +1,5 @@
 name: 'Python Poetry Github Action'
-author: '@abatilo'
+author: '@tokusumi'
 description: 'An action to run https://github.com/python-poetry/poetry'
 
 branding:
