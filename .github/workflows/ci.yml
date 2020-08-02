@@ -15,11 +15,12 @@ jobs:
       with:
         python_version: ${{ matrix.python_version }}
         poetry_version: ${{ matrix.poetry_version }}
+        
     - name: Run help
       uses: ./
       with:
         working_directory: '.'
-        args: -h
+        command: -h
   release:
     needs: ci
     runs-on: ubuntu-latest

@@ -18,7 +18,12 @@ inputs:
     description: 'The directory to run poetry commands in.'
     required: false
     default: '.'
-
+  command:
+    description: 'The command for poetry'
+    repuired: false
+    default: ''
 runs:
   using: 'docker'
-  image: 'Dockerfile${{ inputs.python_version }}'
+  image: 'Dockerfile'
+  args:
+    - 'privileged'
