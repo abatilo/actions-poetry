@@ -1,7 +1,5 @@
-FROM python:slim-buster
-
-ENV PYENV_ROOT=/root/.pyenv
-ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+ARG INPUT_PYTHON_VERSION=3.7
+FROM python:${INPUT_PYTHON_VERSION}-slim-buster
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -26,12 +24,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install pyenv, then install python versions
-RUN git clone --depth 1 https://github.com/pyenv/pyenv.git $PYENV_ROOT && \
-    rm -rfv $PYENV_ROOT/.git
+ARG INPUT_POETRY_VERSION=1.0
+RUN pip install pip==20.2 \
+   poetry==${INPUT_POETRY_VERSION}
 
-# Install xxenv-latest, for inferring latest version of python
-RUN git clone https://github.com/momo-lab/xxenv-latest.git $PYENV_ROOT/plugins/xxenv-latest
-
-COPY requirements.txt entrypoint.sh /
+ADD entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]

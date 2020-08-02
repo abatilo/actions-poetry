@@ -10,11 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Run image
-      uses: ./
       with:
         python_version: ${{ matrix.python_version }}
         poetry_version: ${{ matrix.poetry_version }}
+    - name: Run image
+      uses: ./
+      with:
         working_directory: '.'
   release:
     needs: ci
