@@ -1,9 +1,7 @@
 name: 'Python Poetry Github Action'
 author: '@abatilo'
 description: 'An action to run https://github.com/python-poetry/poetry'
-runs:
-  using: 'docker'
-  image: 'Dockerfile${{ inputs.python_version }}'
+
 branding:
   icon: 'truck'
   color: 'gray-dark'
@@ -20,3 +18,7 @@ inputs:
     description: 'The directory to run poetry commands in.'
     required: false
     default: '.'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile${{ inputs.python_version }}'
