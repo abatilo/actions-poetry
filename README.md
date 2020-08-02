@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install
-      uses: abatilo/actions-poetry@v1.5.0
+      uses: tokusumi/actions-poetry@v1.1.0
       with:
         python_version: 3.8.0
         poetry_version: 1.0
