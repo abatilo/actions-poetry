@@ -11,7 +11,7 @@ else
     docker build -t ${IMAGE_NAME} \
             --build-arg INPUT_PYTHON_VERSION=${INPUT_PYTHON_VERSION} \
             --build-arg INPUT_POETRY_VERSION=${INPUT_POETRY_VERSION} \
-            -f ./Dockerfile-core ./
+            -f /Dockerfile-core ./
 fi
 
 docker run poetry ${INPUT_COMMAND}
