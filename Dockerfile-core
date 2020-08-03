@@ -3,9 +3,9 @@ ARG INPUT_POETRY_VERSION=1.0.0
 FROM tokusumi/poetry-action:${INPUT_PYTHON_VERSION}-py-${INPUT_POETRY_VERSION}-poetry
 
 
-COPY poetry.lock pyproject.toml ./
+COPY ./ ./
 RUN poetry update && \
     poetry install
 
-ADD entrypoint.sh /
+COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
