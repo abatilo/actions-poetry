@@ -1,6 +1,6 @@
 FROM docker:dind
 
-COPY Dockerfile-core entrypoint.sh /
+COPY Dockerfile-core entrypoint.sh ./
 
 COPY setup.sh /setup.sh
 
