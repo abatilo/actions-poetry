@@ -13,7 +13,7 @@ inputs:
   poetry_version:
     description: 'The version of poetry to install'
     required: true
-    default: '1.0'
+    default: '1.0.0'
   working_directory:
     description: 'The directory to run poetry commands in.'
     required: false
