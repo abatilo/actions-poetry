@@ -1,27 +1,37 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   ci:
     strategy:
+      fail-fast: false
       matrix:
-        python_version: [3.5, 3.6, 3.7, 3.8]
-        poetry_version: [1.0]
-    runs-on: ubuntu-latest
+        python-version: [3.6, 3.7, 3.8]
+        poetry-version: [1.0, 1.0.10]
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@master
-    - name: Run image
-      uses: ./
-      with:
-        python_version: ${{ matrix.python_version }}
-        poetry_version: ${{ matrix.poetry_version }}
-        working_directory: '.'
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run image
+        uses: ./
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: View poetry --help
+        run: poetry --help
   release:
+    if: github.event_name == 'push'
     needs: ci
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Generate release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx semantic-release
+      - uses: actions/checkout@master
+      - name: Generate release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

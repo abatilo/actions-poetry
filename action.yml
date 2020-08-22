@@ -1,22 +1,17 @@
-name: 'Python Poetry Action'
-author: '@abatilo'
-description: 'An action to run https://github.com/python-poetry/poetry'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
+name: "Python Poetry Action"
+author: "@abatilo"
+description: "An action to run https://github.com/python-poetry/poetry"
 branding:
-  icon: 'truck'
-  color: 'gray-dark'
+  icon: "truck"
+  color: "gray-dark"
 inputs:
-  python_version:
-    description: 'The version of python to install'
+  poetry-version:
+    description: "The version of poetry to install"
     required: true
-    default: '3.8'
-  poetry_version:
-    description: 'The version of poetry to install'
-    required: true
-    default: '1.0'
-  working_directory:
-    description: 'The directory to run poetry commands in.'
-    required: false
-    default: '.'
+    default: "1.0"
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        pip install poetry==${{ inputs.poetry-version }}
+      shell: bash

@@ -10,31 +10,37 @@ GitHub Actions for Python projects using poetry
 
 ## Getting started
 
+### Breaking changes for v2
+We've drastically simplified this GitHub Action for v2. This is no longer a
+Docker action that runs as its own container, it's just a simplified way for
+you to install poetry. This action now makes an assumption that you've already
+setup Python via `setup-python` or some other way. Since we're installing poetry directly to your environment, this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
+
 ### Create your workflow
 ```yaml
-name: Run Tests
-on: push
+name: CI
+on: pull_request
 
 jobs:
-  pytest:
-    name: pytest
-    runs-on: ubuntu-latest
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+        poetry-version: [1.0, 1.0.10]
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@master
-    - name: Install
-      uses: abatilo/actions-poetry@v1.5.0
-      with:
-        python_version: 3.8.0
-        poetry_version: 1.0
-        working_directory: ./working_dir # Optional, defaults to '.'
-        args: install
-    - name: Run pytest
-      uses: abatilo/actions-poetry@v1.5.0
-      with:
-        python_version: 3.8.0
-        poetry_version: 1.0
-        working_directory: ./working_dir
-        args: run python -m pytest --cov=src --cov-branch --cov-fail-under=100 tests/
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run image
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: View poetry --help
+        run: poetry --help
 ```
 
 ## License
