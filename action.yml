@@ -14,4 +14,5 @@ runs:
   steps:
     - run: |
         curl -sSl -vvv https://raw.githubusercontent.com/python-poetry/poetry/${{ inputs.poetry-version }}/get-poetry.py | python -
+        echo "$HOME/.poetry/bin" >> $GITHUB_PATH
       shell: bash
