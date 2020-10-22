@@ -13,5 +13,5 @@ runs:
   using: "composite"
   steps:
     - run: |
-        pip install poetry==${{ inputs.poetry-version }}
+        curl -sSl https://raw.githubusercontent.com/python-poetry/poetry/${{ inputs.poetry-version }}/get-poetry.py | python -
       shell: bash
