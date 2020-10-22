@@ -40,19 +40,9 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-poetry
       - name: Run image
-        uses: ./
+        uses: abatilo/actions-poetry@v2.1.0
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
         run: poetry --help
 ```
-
-## License
-
-[MIT License - abatilo/actions-poetry]
-
-[mit license - abatilo/actions-poetry]: https://github.com/abatilo/actions-poetry/blob/master/LICENSE
-
-## About the author
-
-- [abatilo's homepage](https://www.aaronbatilo.dev/)
