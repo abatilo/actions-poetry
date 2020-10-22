@@ -13,5 +13,5 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -sSl https://raw.githubusercontent.com/python-poetry/poetry/${{ inputs.poetry-version }}/get-poetry.py | python -
+        curl -sSl -vvv https://raw.githubusercontent.com/python-poetry/poetry/${{ inputs.poetry-version }}/get-poetry.py | python -
       shell: bash
