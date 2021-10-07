@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.7, 3.8]
-        poetry-version: [1.0, 1.1.8]
+        poetry-version: [1.0, 1.1.11]
         os: [ubuntu-18.04, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
