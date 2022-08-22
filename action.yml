@@ -8,7 +8,7 @@ inputs:
   poetry-version:
     description: "The version of poetry to install"
     required: true
-    default: "1.1.11"
+    default: "1.1.15"
 runs:
   using: "composite"
   steps:
