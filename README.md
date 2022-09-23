@@ -1,19 +1,18 @@
-# actions-poetry
-GitHub Actions for Python projects using poetry
+# actions-pipenv
+GitHub Actions for Python projects using pipenv.
+Shameless adaptation of [abatilo/actions-poetry: GitHub Actions for Python projects using poetry](https://github.com/abatilo/actions-poetry)
 
-[![license](https://img.shields.io/github/license/abatilo/actions-poetry.svg)](https://github.com/abatilo/actions-poetry/blob/master/LICENSE)
-[![release](https://img.shields.io/github/release/abatilo/actions-poetry.svg)](https://github.com/abatilo/actions-poetry/releases/latest)
-[![GitHub release date](https://img.shields.io/github/release-date/abatilo/actions-poetry.svg)](https://github.com/abatilo/actions-poetry/releases)
+[![license](https://img.shields.io/github/license/tiagovrtr/actions-pipenv.svg)](https://github.com/tiagovrtr/actions-pipenv/blob/master/LICENSE)
+[![release](https://img.shields.io/github/release/tiagovrtr/actions-pipenv.svg)](https://github.com/tiagovrtr/actions-pipenv/releases/latest)
+[![GitHub release date](https://img.shields.io/github/release-date/tiagovrtr/actions-pipenv.svg)](https://github.com/tiagovrtr/actions-pipenv/releases)
 
-- [python-poetry/poetry: Python dependency management and packaging made easy.](https://github.com/python-poetry/poetry)
+- [pypa/pipenv: Python Development Workflow for Humans.](https://github.com/pypa/pipenv)
 
 ## Getting started
 
-### Breaking changes for v2
-We've drastically simplified this GitHub Action for v2. This is no longer a
-Docker action that runs as its own container, it's just a simplified way for
-you to install poetry. This action now makes an assumption that you've already
-setup Python via `setup-python` or some other way. Since we're installing poetry directly to your environment, this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
+### Implementation notes
+This action makes the assumption that you've already
+setup Python via `setup-python` or some other way. Since we're installing pipenv directly to your environment, this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
 
 ### Create your workflow
 ```yaml
@@ -26,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        poetry-version: ["1.0", "1.1.15"]
+        pipenv-version: ["v2022.9.8", "v2022.9.21"]
         os: [ubuntu-18.04, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -34,12 +33,13 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pipenv"
       - name: Run image
-        uses: abatilo/actions-poetry@v2
+        uses: tiagovrtr/actions-pipenv@v1
         with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: View poetry --help
-        run: poetry --help
+          pipenv-version: ${{ matrix.pipenv-version }}
+      - name: View pipenv --help
+        run: pipenv --help
 ```
 
 ## License
@@ -47,8 +47,3 @@ jobs:
 [MIT License - abatilo/actions-poetry]
 
 [MIT License - abatilo/actions-poetry]: https://github.com/abatilo/actions-poetry/blob/master/LICENSE
-
-
-## About the author
-
-- [abatilo's homepage](https://www.aaronbatilo.dev/)

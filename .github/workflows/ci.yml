@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        poetry-version: [1.0, 1.1.15]
+        pipenv-version: ["v2022.9.8", "v2022.9.21"]
         os: [ubuntu-18.04, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -22,9 +22,9 @@ jobs:
       - name: Run image
         uses: ./
         with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: View poetry --help
-        run: poetry --help
+          pipenv-version: ${{ matrix.pipenv-version }}
+      - name: View pipenv --help
+        run: pipenv --help
   release:
     if: github.event_name == 'push'
     needs: ci
@@ -39,8 +39,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git tag -d v2
-          git push --delete origin v2
-          git push origin :refs/tags/v2
-          git tag v2
+          git tag -d v1
+          git push --delete origin v1
+          git push origin :refs/tags/v1
+          git tag v1
           git push --tags

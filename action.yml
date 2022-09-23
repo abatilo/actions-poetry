@@ -1,17 +1,17 @@
-name: "Python Poetry Action"
-author: "@abatilo"
-description: "An action to run https://github.com/python-poetry/poetry"
+name: "Python Pipenv Action"
+author: "@tiagovrtr"
+description: "An action to run https://github.com/pypa/pipenv"
 branding:
   icon: "truck"
   color: "gray-dark"
 inputs:
-  poetry-version:
-    description: "The version of poetry to install"
+  pipenv-version:
+    description: "The version of pipenv to install"
     required: true
-    default: "1.1.15"
+    default: "2022.9.21"
 runs:
   using: "composite"
   steps:
     - run: |
-        pip install poetry==${{ inputs.poetry-version }}
+        pip install pipenv==${{ inputs.pipenv-version }}
       shell: bash
