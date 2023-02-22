@@ -7,7 +7,7 @@ branding:
 inputs:
   poetry-version:
     description: "The version of poetry to install"
-    required: true
+    required: false
     default: "latest"
 runs:
   using: "composite"
