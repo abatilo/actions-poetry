@@ -12,11 +12,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
+    - if: ${{ inputs.poetry-version == 'latest' }}
+      run: |
         pip install -U poetry
-      if: ${{ inputs.poetry-version == 'latest' }}
       shell: bash
-    - run: |
+    - if: ${{ inputs.poetry-version != 'latest' }}
+      run: |
         pip install poetry==${{ inputs.poetry-version }}
-      if: ${{ inputs.poetry-version != 'latest' }}
       shell: bash
