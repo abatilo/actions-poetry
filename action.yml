@@ -15,6 +15,7 @@ runs:
     - run: |
         pip install --user pipx
         pipx ensurepath
+      shell: bash
     - if: ${{ inputs.poetry-version == 'latest' }}
       run: |
         pipx install -U poetry
