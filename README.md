@@ -10,12 +10,16 @@ GitHub Actions for Python projects using poetry
 ## Getting started
 
 ### Breaking changes for v2
-We've drastically simplified this GitHub Action for v2. This is no longer a
-Docker action that runs as its own container, it's just a simplified way for
-you to install poetry. This action now makes an assumption that you've already
-setup Python via `setup-python` or some other way. Since we're installing poetry directly to your environment, this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
+
+We've drastically simplified this GitHub Action for v2.
+This is no longer a Docker action that runs as its own container,
+it's just a simplified way for you to install poetry.
+This action now makes an assumption that you've already setup Python via `setup-python` or some other way.
+Since we're installing poetry directly to your environment,
+this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
 
 ### Create your workflow
+
 ```yaml
 name: CI
 on: pull_request
@@ -47,7 +51,6 @@ jobs:
 [MIT License - abatilo/actions-poetry]
 
 [MIT License - abatilo/actions-poetry]: https://github.com/abatilo/actions-poetry/blob/master/LICENSE
-
 
 ## About the author
 
