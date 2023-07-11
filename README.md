@@ -10,12 +10,16 @@ GitHub Actions for Python projects using poetry
 ## Getting started
 
 ### Breaking changes for v2
-We've drastically simplified this GitHub Action for v2. This is no longer a
-Docker action that runs as its own container, it's just a simplified way for
-you to install poetry. This action now makes an assumption that you've already
-setup Python via `setup-python` or some other way. Since we're installing poetry directly to your environment, this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
+
+We've drastically simplified this GitHub Action for v2.
+This is no longer a Docker action that runs as its own container,
+it's just a simplified way for you to install poetry.
+This action now makes an assumption that you've already setup Python via `setup-python` or some other way.
+Since we're installing poetry directly to your environment,
+this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
 
 ### Create your workflow
+
 ```yaml
 name: CI
 on: pull_request
@@ -42,12 +46,67 @@ jobs:
         run: poetry --help
 ```
 
+### Workflow example: cache the virtual environment
+
+It is possible to combine `actions/poetry` with [actions/cache](https://github.com/actions/cache) to speed up the installation of dependencies.
+The recipe is:
+
+1. to ask `poetry` to create a virtual environment inside the project:
+it creates a local `.venv/` folder that can be cached
+2. to create a cache key that involves the contents of the `poetry.lock` file:
+if the contents change (meaning that dependencies have changed), then the cache needs to be invalidated and recreated
+
+For the 1st step, you either need:
+
+- to have a `poetry.toml` file at the root of your project with these 2 settings:
+
+```ini
+[virtualenvs]
+create = true
+in-project = true
+```
+
+- or to run the following commands in the github actions to create the `poetry.toml` file:
+
+```sh
+poetry config virtualenvs.create true --local
+poetry config virtualenvs.in-project true --local
+```
+
+Here is an example of how the steps must be declared:
+
+```yaml
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Python
+        uses: actions/setup-python@v4
+        # see details (matrix, python-version, python-version-file, etc.)
+        # https://github.com/actions/setup-python
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+      - name: Install the project dependencies
+        run: poetry install
+      - name: Run the automated tests (for example)
+        run: poetry run pytest -v
+```
+
 ## License
 
 [MIT License - abatilo/actions-poetry]
 
 [MIT License - abatilo/actions-poetry]: https://github.com/abatilo/actions-poetry/blob/master/LICENSE
-
 
 ## About the author
 
