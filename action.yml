@@ -18,7 +18,7 @@ runs:
       shell: bash
     - if: ${{ inputs.poetry-version == 'latest' }}
       run: |
-        pipx install --pip-args="-U" poetry
+        pipx install poetry
       shell: bash
     - if: ${{ inputs.poetry-version != 'latest' }}
       run: |
