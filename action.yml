@@ -9,6 +9,10 @@ inputs:
     description: "The version of poetry to install"
     required: false
     default: "latest"
+  poetry-plugins:
+    description: "The whitespace/newline-separated list of poetry plugins to install."
+    required: false
+    default: "poetry-plugin-export"
 runs:
   using: "composite"
   steps:
@@ -19,4 +23,10 @@ runs:
     - if: ${{ inputs.poetry-version != 'latest' }}
       run: |
         pip install poetry==${{ inputs.poetry-version }}
+      shell: bash
+    - run: |
+        ALL_PLUGINS=$(echo "${{ inputs.poetry-plugins }}")
+        for PLUGIN in $ALL_PLUGINS; do
+          poetry self add $PLUGIN
+        done
       shell: bash
