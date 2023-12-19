@@ -24,7 +24,8 @@ runs:
       run: |
         pip install poetry==${{ inputs.poetry-version }}
       shell: bash
-    - run: |
+    - if: ${{ inputs.poetry-plugins != '' }}
+      run: |
         ALL_PLUGINS=$(echo "${{ inputs.poetry-plugins }}")
         for PLUGIN in $ALL_PLUGINS; do
           poetry self add $PLUGIN
