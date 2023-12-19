@@ -12,7 +12,7 @@ inputs:
   poetry-plugins:
     description: "The whitespace/newline-separated list of poetry plugins to install."
     required: false
-    default: "poetry-plugin-export"
+    default: ""
 runs:
   using: "composite"
   steps:
