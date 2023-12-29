@@ -25,9 +25,15 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
         run: poetry --help
+  ci-all:
+    runs-on: ubuntu-latest
+    needs: [ci]
+    steps:
+      - run: |
+          echo "All matrix jobs have completed successfully!"
   release:
     if: github.event_name == 'push'
-    needs: ci
+    needs: ci-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
