@@ -16,13 +16,17 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: |
+        pip install --user pipx
+        pipx ensurepath
+      shell: bash
     - if: ${{ inputs.poetry-version == 'latest' }}
       run: |
-        pip install -U poetry
+        pipx install poetry
       shell: bash
     - if: ${{ inputs.poetry-version != 'latest' }}
       run: |
-        pip install poetry==${{ inputs.poetry-version }}
+        pipx install poetry==${{ inputs.poetry-version }}
       shell: bash
     - if: ${{ inputs.poetry-plugins != '' }}
       run: |
