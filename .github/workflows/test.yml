@@ -1,0 +1,29 @@
+name: test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: "read"
+      id-token: "write"
+      pull-requests: "write"
+    env:
+      POETRY_VERSION: 1.5.0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+      - name: Setup poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: ${{ env.POETRY_VERSION }}
+      - run: |
+          poetry --help
+          poetry --version
