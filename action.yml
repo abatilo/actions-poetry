@@ -17,8 +17,8 @@ runs:
   using: "composite"
   steps:
     - run: |
-        pip install --user pipx
-        pipx ensurepath
+        python3 -m pip install --user pipx
+        python3 -m pipx ensurepath
       shell: bash
     - if: ${{ inputs.poetry-version == 'latest' }}
       run: |
