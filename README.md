@@ -58,7 +58,9 @@ if the contents change (meaning that dependencies have changed), then the cache 
 
 For the 1st step, you either need:
 
-- to have a `poetry.toml` file at the root of your project with these 2 settings:
+- to have a `poetry.toml` file
+  (and [not `pyproject.toml`](https://github.com/python-poetry/poetry/issues/2937))
+  at the root of your project with these 2 settings:
 
 ```ini
 [virtualenvs]
