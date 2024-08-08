@@ -24,7 +24,11 @@ runs:
       run: |
         pipx install poetry
       shell: bash
-    - if: ${{ inputs.poetry-version != 'latest' }}
+    - if: ${{ inputs.poetry-version == 'main' }}
+      run: |
+        pipx install git+https://github.com/python-poetry/poetry.git@main
+      shell: bash
+    - if: ${{ inputs.poetry-version != 'latest' && inputs.poetry-version != 'main' }}
       run: |
         pipx install poetry==${{ inputs.poetry-version }}
       shell: bash
