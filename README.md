@@ -29,8 +29,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
-        poetry-version: ["1.2.2", "1.7.1"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        poetry-version: ["latest", "main", "1.8.4"]
         os: [ubuntu-22.04, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
