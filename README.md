@@ -14,7 +14,7 @@ GitHub Actions for Python projects using poetry
 We've drastically simplified this GitHub Action for v2.
 This is no longer a Docker action that runs as its own container,
 it's just a simplified way for you to install poetry.
-This action now makes an assumption that you've already setup Python via `setup-python` or some other way.
+This action assumes that you've already set up Python via `setup-python` or some other way.
 Since we're installing poetry directly to your environment,
 this also means that you can cache your dependencies more easily since everything is running on the host runner instead of an isolated container environment.
 
@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run image
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v3
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
@@ -68,7 +68,7 @@ create = true
 in-project = true
 ```
 
-- or to run the following commands in the github actions to create the `poetry.toml` file:
+- or to run the following commands in the GitHub Actions to create the `poetry.toml` file:
 
 ```sh
 poetry config virtualenvs.create true --local
@@ -84,11 +84,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         # see details (matrix, python-version, python-version-file, etc.)
         # https://github.com/actions/setup-python
       - name: Install poetry
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v3
       - name: Setup a local virtual environment (if no poetry.toml file)
         run: |
           poetry config virtualenvs.create true --local
