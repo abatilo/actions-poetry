@@ -48,8 +48,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git tag -d v3
-          git push --delete origin v3
-          git push origin :refs/tags/v3
-          git tag v3
-          git push --tags
+          # Temporarily disable as we merge #82 which will bump major version
+
+          # git tag -d v3
+          # git push --delete origin v3
+          # git push origin :refs/tags/v3
+          # git tag v3
+          # git push --tags
