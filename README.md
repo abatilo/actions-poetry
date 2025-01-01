@@ -9,6 +9,17 @@ GitHub Actions for Python projects using poetry
 
 ## Getting started
 
+### Breaking changes for v4
+
+As of #82, we've removed the changes that were in v3, since `pipx` is installed
+on recent versions of GitHub Action runners by default.
+
+### Breaking changes for v3
+
+We've started installing `poetry` with `pipx` to keep the installed artifacts
+isolated away from any of your application dependencies. v3 will install `pipx`
+for you as well.
+
 ### Breaking changes for v2
 
 We've drastically simplified this GitHub Action for v2.
@@ -39,7 +50,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run image
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v4
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
@@ -88,7 +99,7 @@ jobs:
         # see details (matrix, python-version, python-version-file, etc.)
         # https://github.com/actions/setup-python
       - name: Install poetry
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v4
       - name: Setup a local virtual environment (if no poetry.toml file)
         run: |
           poetry config virtualenvs.create true --local
