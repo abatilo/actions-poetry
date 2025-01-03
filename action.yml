@@ -28,6 +28,9 @@ runs:
       run: |
         pipx install poetry==${{ inputs.poetry-version }}
       shell: bash
+    - run: |
+        pipx ensurepath
+      shell: bash
     - if: ${{ inputs.poetry-plugins != '' }}
       run: |
         ALL_PLUGINS=$(echo "${{ inputs.poetry-plugins }}")
