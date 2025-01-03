@@ -16,6 +16,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: |
+        python3 -m pip install --user pipx
+        python3 -m pipx ensurepath
+      shell: bash
     - if: ${{ inputs.poetry-version == 'latest' }}
       run: |
         pipx install poetry
