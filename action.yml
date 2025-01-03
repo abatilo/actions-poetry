@@ -18,18 +18,15 @@ runs:
   steps:
     - if: ${{ inputs.poetry-version == 'latest' }}
       run: |
-        pipx install poetry
+        pipx install poetry --python $(which python)
       shell: bash
     - if: ${{ inputs.poetry-version == 'main' }}
       run: |
-        pipx install git+https://github.com/python-poetry/poetry.git@main
+        pipx install git+https://github.com/python-poetry/poetry.git@main --python $(which python)
       shell: bash
     - if: ${{ inputs.poetry-version != 'latest' && inputs.poetry-version != 'main' }}
       run: |
-        pipx install poetry==${{ inputs.poetry-version }}
-      shell: bash
-    - run: |
-        pipx ensurepath
+        pipx install poetry==${{ inputs.poetry-version }} --python $(which python)
       shell: bash
     - if: ${{ inputs.poetry-plugins != '' }}
       run: |
