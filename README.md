@@ -9,11 +9,6 @@ GitHub Actions for Python projects using poetry
 
 ## Getting started
 
-### Breaking changes for v4
-
-As of #82, we've removed the changes that were in v3, since `pipx` is installed
-on recent versions of GitHub Action runners by default.
-
 ### Breaking changes for v3
 
 We've started installing `poetry` with `pipx` to keep the installed artifacts
@@ -50,7 +45,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run image
-        uses: abatilo/actions-poetry@v4
+        uses: abatilo/actions-poetry@v3
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
